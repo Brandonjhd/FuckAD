@@ -33,5 +33,5 @@ jobs:
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
         git add fuck_ad_sr.conf || echo "Nothing to add"
-        git commit -m "Auto update FuckAD rules" || echo "No changes to commit"
-        git push
+        git commit -m "Auto update FuckAD rules" || exit 0
+        git push origin HEAD:main --force
