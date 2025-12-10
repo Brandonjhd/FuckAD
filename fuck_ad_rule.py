@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-# 功能說明: 從網絡自動爬取兩個廣告規則文件, 去除註釋並合併去重排序後輸出到本地 FuckAD 規則文件
+# 功能說明: 從網絡自動爬取多個廣告規則文件, 去除註釋並合併去重排序後輸出多種格式的規則文件並更新 README 規則總數
 
 import sys
+import os
 import urllib.request
 import urllib.error
 from datetime import datetime, timezone
@@ -14,8 +15,16 @@ RULE_URLS = [
     "https://whatshub.top/rule/AntiAD.list",
 ]
 
-# 功能說明: 合併後輸出的文件名稱, 為小火箭專用規則文件名稱
-OUTPUT_FILE = "fuck_ad_sr.conf"
+# 功能說明: 生成的多格式輸出文件列表
+OUTPUT_FILES = [
+    "fuck_ad_sr.conf",
+    "fuck_ad_qx.conf",
+    "fuck_ad_surge.conf",
+    "fuck_ad_clash.list",
+]
+
+# 功能說明: README 文件路徑
+README_PATH = "README.md"
 
 # 功能說明: HTTP 請求超時秒數
 HTTP_TIMEOUT_SECONDS = 60
@@ -142,7 +151,49 @@ def write_rules_to_file(rules: List[str], output_path: str) -> None:
         raise RuntimeError(f"Failed to write output file '{output_path}': {e}") from e
 
 
-# 功能說明: 主函數, 自動爬取並生成 FuckAD 規則文件
+# 功能說明: 更新 README 中各語言段落的規則總數
+def update_readme_rule_count(readme_path: str, total_rules: int) -> None:
+    if not isinstance(readme_path, str) or not readme_path:
+        raise ValueError("Readme path must be a non-empty string")
+    if not isinstance(total_rules, int) or total_rules < 0:
+        raise ValueError("Total rules must be a non-negative integer")
+    if not os.path.exists(readme_path):
+        return
+    try:
+        with open(readme_path, "r", encoding="utf-8") as f:
+            content = f.read()
+    except OSError:
+        return
+
+    lines = content.splitlines()
+    prefixes = [
+        "当前合并规则总数：**",
+        "目前合併規則總數：**",
+        "Current merged rule count: **",
+        "現在の結合ルール総数：**",
+        "현재 통합 규칙 총 개수: **",
+    ]
+    new_lines = []
+    for line in lines:
+        stripped = line.strip()
+        replaced = False
+        for prefix in prefixes:
+            if stripped.startswith(prefix):
+                new_lines.append(f"{prefix}{total_rules}**")
+                replaced = True
+                break
+        if not replaced:
+            new_lines.append(line)
+
+    new_content = "\n".join(new_lines)
+    try:
+        with open(readme_path, "w", encoding="utf-8") as f:
+            f.write(new_content)
+    except OSError:
+        return
+
+
+# 功能說明: 主函數, 自動爬取並生成多格式規則文件並嘗試更新 README 規則總數
 def main() -> None:
     all_source_lines: List[List[str]] = []
 
@@ -163,11 +214,17 @@ def main() -> None:
         print(f"Error: failed to merge rules: {e}", file=sys.stderr)
         sys.exit(1)
 
+    for path in OUTPUT_FILES:
+        try:
+            write_rules_to_file(merged_rules, path)
+        except Exception as e:
+            print(f"Error: failed to write output file '{path}': {e}", file=sys.stderr)
+            sys.exit(1)
+
     try:
-        write_rules_to_file(merged_rules, OUTPUT_FILE)
-    except Exception as e:
-        print(f"Error: failed to write output file '{OUTPUT_FILE}': {e}", file=sys.stderr)
-        sys.exit(1)
+        update_readme_rule_count(README_PATH, len(merged_rules))
+    except Exception:
+        pass
 
 
 if __name__ == "__main__":
