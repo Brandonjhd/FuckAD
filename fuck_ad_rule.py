@@ -14,8 +14,8 @@ RULE_URLS = [
     "https://whatshub.top/rule/AntiAD.list",
 ]
 
-# 功能說明: 合併後輸出的文件名稱
-OUTPUT_FILE = "FuckAD.conf"
+# 功能說明: 合併後輸出的文件名稱, 為小火箭專用規則文件名稱
+OUTPUT_FILE = "fuck_ad_sr.conf"
 
 # 功能說明: HTTP 請求超時秒數
 HTTP_TIMEOUT_SECONDS = 60
