@@ -11,7 +11,7 @@ from typing import List, Set
 
 # 功能說明: 規則來源配置
 RULE_URLS = [
-    "https://adrules.top/adrules-surge.conf",
+    "https://raw.githubusercontent.com/Cats-Team/AdRules/main/adrules.list",
     "https://whatshub.top/rule/AntiAD.list",
     "https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-surge.txt"
 ]
@@ -132,13 +132,13 @@ def write_rules_to_file(rules: List[str], output_path: str) -> None:
     if rules is None:
         raise ValueError("Rules list must not be None")
 
-    updated_at = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    updated_at = datetime.now(timezone.utc).strftime("%Y-%m-%d-%H")
     total_rules = len(rules)
 
     header_lines = [
         f"# Updated time: {updated_at}",
         f"# Total rules: {total_rules}",
-        "# Thanks: adrules.top and whatshub.top",
+        "# Thanks: adrules.top and whatshub.top and anti-ad.net",
         "",
     ]
 
