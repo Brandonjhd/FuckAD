@@ -13,6 +13,7 @@ from typing import List, Set
 RULE_URLS = [
     "https://adrules.top/adrules-surge.conf",
     "https://whatshub.top/rule/AntiAD.list",
+    "https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-surge.txt"
 ]
 
 # 功能說明: 生成的多格式輸出文件列表
