@@ -13,7 +13,7 @@ Update at UTF-8 3:00
 <a id="zh-cn"></a>
 ## 🇨🇳 简体中文
 
-### 订阅链接（不同代理工具）
+### 订阅链接
 | 代理工具 | 订阅链接 |
 |---------|----------|
 | 小火箭（Shadowrocket） & Surge | `https://raw.githubusercontent.com/Brandonjhd/FuckAD/main/fuck_ad_sr.conf` |
@@ -32,7 +32,7 @@ Update at UTF-8 3:00
 <a id="zh-tw"></a>
 ## 🇹🇼 繁體中文
 
-### 訂閱連結（不同代理工具）
+### 訂閱連結
 | 代理工具 | 訂閱連結 |
 |---------|----------|
 | 小火箭（Shadowrocket） & Surge | `https://raw.githubusercontent.com/Brandonjhd/FuckAD/main/fuck_ad_sr.conf` |
@@ -51,7 +51,7 @@ Update at UTF-8 3:00
 <a id="en"></a>
 ## 🇺🇸 English
 
-### Subscription Links (Proxy Tools)
+### Subscription Links
 | Proxy Tool | Subscription Link |
 |------------|-------------------|
 | Shadowrocket & Surge | `https://raw.githubusercontent.com/Brandonjhd/FuckAD/main/fuck_ad_sr.conf` |
@@ -70,7 +70,7 @@ Current merged rule count: **152000**
 <a id="ja"></a>
 ## 🇯🇵 日本語
 
-### サブスクリプションリンク（プロキシツール）
+### サブスクリプションリンク
 | プロキシツール | サブスクリプション URL |
 |----------------|---------------------------|
 | Shadowrocket & Surge | `https://raw.githubusercontent.com/Brandonjhd/FuckAD/main/fuck_ad_sr.conf` |
@@ -89,7 +89,7 @@ Current merged rule count: **152000**
 <a id="ko"></a>
 ## 🇰🇷 한국어
 
-### 구독 링크 (프록시 도구)
+### 구독 링크 
 | 프록시 도구 | 구독 URL |
 |-------------|-----------|
 | Shadowrocket & Surge | `https://raw.githubusercontent.com/Brandonjhd/FuckAD/main/fuck_ad_sr.conf` |
