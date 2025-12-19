@@ -13,10 +13,7 @@ RULE_URLS = [
 ]
 
 OUTPUT_FILES = [
-    "fuck_ad_sr.conf",
-    "fuck_ad_qx.conf",
-    "fuck_ad_surge.conf",
-    "fuck_ad_clash.list",
+    "fuck_ad_sr.conf"
 ]
 
 README_PATH = "README.md"
@@ -115,7 +112,7 @@ def write_rules_to_file(rules: List[str], output_path: str) -> None:
     if rules is None:
         raise ValueError("Rules list must not be None")
 
-    updated_at = datetime.now(timezone.utc).strftime("%Y-%m-%d-%H")
+    updated_at = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     total_rules = len(rules)
 
     header_lines = [
