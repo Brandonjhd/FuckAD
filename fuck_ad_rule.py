@@ -8,7 +8,6 @@ from typing import List, Set
 
 RULE_URLS = [
     "https://raw.githubusercontent.com/Cats-Team/AdRules/main/adrules.list",
-    "https://whatshub.top/rule/ADLite.list",
     "https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-surge.txt"
 ]
 
@@ -118,7 +117,7 @@ def write_rules_to_file(rules: List[str], output_path: str) -> None:
     header_lines = [
         f"# Updated time: {updated_at}",
         f"# Total rules: {total_rules}",
-        "# Thanks: adrules.top and whatshub.top and anti-ad.net",
+        "# Thanks: adrules.top and anti-ad.net",
         "",
     ]
 
