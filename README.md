@@ -13,6 +13,9 @@ Update at UTF-8 3:00
 <a id="zh-cn"></a>
 ## 🇨🇳 简体中文
 
+### 简介
+小火箭 Shadowrocket & Surge 去广告规则集（每日更新、多源聚合、自动去重）
+
 ### 订阅链接
 | 代理工具 | 订阅链接 |
 |---------|----------|
@@ -30,6 +33,9 @@ Update at UTF-8 3:00
 
 <a id="zh-tw"></a>
 ## 🇹🇼 繁體中文
+
+### 簡介
+小火箭 Shadowrocket & Surge 去廣告規則集（每日更新、多源聚合、自動去重）
 
 ### 訂閱連結
 | 代理工具 | 訂閱連結 |
@@ -49,6 +55,9 @@ Update at UTF-8 3:00
 <a id="en"></a>
 ## 🇺🇸 English
 
+### Introduction
+Shadowrocket & Surge Ad-blocking Rule Set (Daily Update, Multi-source Aggregation, Automatic Deduplication)
+
 ### Subscription Links
 | Proxy Tool | Subscription Link |
 |------------|-------------------|
@@ -67,6 +76,9 @@ Current merged rule count: **152000**
 <a id="ja"></a>
 ## 🇯🇵 日本語
 
+### 概要
+Shadowrocket & Surge 広告ブロックルールセット（毎日更新、マルチソース集約、自動重複排除）
+
 ### サブスクリプションリンク
 | プロキシツール | サブスクリプション URL |
 |----------------|---------------------------|
@@ -84,6 +96,9 @@ Current merged rule count: **152000**
 
 <a id="ko"></a>
 ## 🇰🇷 한국어
+
+### 소개
+Shadowrocket & Surge 광고 차단 규칙 모음 (매일 업데이트, 다중 소스 통합, 자동 중복 제거)
 
 ### 구독 링크 
 | 프록시 도구 | 구독 URL |
