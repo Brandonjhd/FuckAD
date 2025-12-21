@@ -1,11 +1,11 @@
 #!name=FuckAppsAD
-#!desc=墨迹天气 / 中国联通 / 淘票票 / YouTube / 微信公众号 / 微信小程序 / 微信url解封 / 大师兄影视 / 夸克
-#!author=Brandonjhd / ddgksf2013
-#!logtime=2025-12-19
+#!desc=墨迹天气 / 中国联通 / 淘票票 / YouTube / 微信公众号 / 微信小程序 / 微信url解封 / 大师兄影视 / 夸克 / 哔哩哔哩 / 12306 / 闲鱼 / 高德地图
+#!author=Brandonjhd / ddgksf2013 / BiliUniverse
+#!logtime=2025-12-21
 #!homepage=https://github.com/Brandonjhd/FuckAD
 
 [Rule]
-# > 通用规则
+# > 通用广告
 DOMAIN-WILDCARD,ad.*,REJECT
 DOMAIN-WILDCARD,*-ad.*,REJECT
 DOMAIN-WILDCARD,*-ads.*,REJECT
@@ -45,14 +45,17 @@ AND,((DOMAIN,youtubei.googleapis.com),(PROTOCOL,UDP)),REJECT
 # > 大师兄影视
 DOMAIN-SUFFIX,sigmob.cn,REJECT
 
+# > 闲鱼
+DOMAIN-SUFFIX,iyes.youku.com,REJECT
+
 [URL Rewrite]
 # > 墨迹天气
-^https?:\/\/.*api\.moji\.com\/flycard\/flyCard - reject
-^https?:\/\/.*api\.moji\.com\/shortvideo - reject
-^https?:\/\/.*api\.moji\.com\/json\/advertising_goods - reject
-^https?:\/\/.*api\.moji\.com\/forum - reject
-^https?:\/\/.*api\.moji\.com\/user\/dynamic_v\d\/json\/someone_interest - reject
-^https:\/\/tnc.*zijieapi\.com\/get_domains - reject
+^https?:\/\/.*api\.moji\.com\/flycard\/flyCard - reject-200
+^https?:\/\/.*api\.moji\.com\/shortvideo - reject-200
+^https?:\/\/.*api\.moji\.com\/json\/advertising_goods - reject-200
+^https?:\/\/.*api\.moji\.com\/forum - reject-200
+^https?:\/\/.*api\.moji\.com\/user\/dynamic_v\d\/json\/someone_interest - reject-200
+^https:\/\/tnc.*zijieapi\.com\/get_domains - reject-200
 
 # > 中国联通
 ^https?:\/\/m\.client\.10010\.com\/mobileserviceimportant\/customer\/querySmartServicekhd\.htm - reject
@@ -71,6 +74,34 @@ DOMAIN-SUFFIX,sigmob.cn,REJECT
 
 # > 大师兄影视
 ^http:\/\/[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+){1,4}(:\d+)?\/.*?\/v\d\/(version|notice\?|top_notice\?|advert\?position=[^2]+) - reject
+
+# > 夸克
+^https?:\/\/unet\.quark\.cn\/v3\/ad\/ - reject
+
+# > 哔哩哔哩
+^https?:\/\/bilibili.2025.04.02/c136 - reject-200
+^https?:\/\/api\.bilibili\.com\/pgc\/activity\/deliver\/material\/receive - reject-200
+^https?:\/\/api\.bilibili\.com\/x\/vip\/ads\/material\/report - reject-200
+^https://api.bilibili.com/pgc/season/player/cards - reject-200
+^https?:\/\/api\.bilibili\.com\/pgc\/season\/player\/ogv\/cards - reject-200
+^https://app.bilibili.com/x/v2/splash/show - reject-200
+^https?:\/\/manga\.bilibili\.com\/twirp\/comic\.v\d\.Comic\/(Flash|ListFlash|GetActivityTab) - reject-200
+^https?:\/\/app\.bilibili\.com\/x\/v\d\/search\/defaultwords - reject-200
+^https?:\/\/(app\.bilibili\.com|grpc\.biliapi\.net)\/bilibili\.app\.interface\.v1\.Search\/Default - reject-200
+
+# > 闲鱼
+^https?:\/\/(g-)?acs\.m\.goofish\.com\/gw\/mtop.*splash\.ads - reject-200
+^https?:\/\/(g-)?acs\.m\.goofish\.com\/gw\/mtop.idle.ad.expose - reject-200
+
+# > 高德地图
+^https?:\/\/.*\.amap\.com\/ws\/aos\/alimama\/splash_screen - reject-200
+^https?:\/\/.*\.amap\.com\/v\d\/ai_rec\/ - reject-200
+^https?:\/\/.*\.amap\.com\/ws\/faas\/amap-navigation\/card-service-route-plan\? - reject-200
+^https?:\/\/.*\.amap\.com\/ws\/boss\/order_web\/\w{8}_information - reject-200
+^https?:\/\/.*\.amap\.com\/ws\/asa\/ads_attribution - reject
+^https?:\/\/.*\.amap\.com\/ws\/shield\/scene\/recommend - reject-200
+^https?:\/\/.*\.amap\.com\/uploadimg\/\w+\.gif - reject-200
+^https?:\/\/.*\.amap\.com\/ws\/valueadded\/weather - reject-200
 
 [Body Rewrite]
 # > 墨迹天气
@@ -98,22 +129,69 @@ http-response-jq ^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.film\.mtopitemadvert
 # > 大师兄影视
 http-response-jq ^http:\/\/[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+){1,4}(:\d+)?\/api\/v\d\/config\/getConfigList\.do '.data |= map(select(.keyName | test("config\\.(ad|search|recommend)") | not))'
 
-# > 夸克
-^https?:\/\/unet\.quark\.cn\/v3\/ad\/ - reject
-
+# > 闲鱼
+http-response-jq ^https?:\/\/(g-)?acs\.m\.goofish\.com\/gw\/mtop.taobao.idle.user.strategy.list '.data.strategies = [{}]'
+http-response-jq ^https?:\/\/(g-)?acs\.m\.goofish\.com\/gw\/mtop.taobao.idlehome.home.circle.list '.data.circleList |= map(select(.bizCode != "saveMoney"))'
+http-response-jq ^https?:\/\/(g-)?acs\.m\.goofish\.com\/gw\/mtop.taobao.idlehome.home.nextfresh '.data.homeTopList |= [ .[0] ] | .data.sections |= map(select(.data.bizType == "item"))'
+http-response-jq ^https?:\/\/(g-)?acs\.m\.goofish\.com\/gw\/mtop.taobao.idlemtopsearch.search.shade '.data.singleShadeWords =[{}]'
+http-response-jq ^https?:\/\/(g-)?acs\.m\.goofish\.com\/gw\/mtop.taobao.idlemtopsearch.item.search.activate '.data.cardList = [{}]'
+http-response-jq ^https?:\/\/(g-)?acs\.m\.goofish\.com\/gw\/mtop.taobao.idlemtopsearch.search.discover 'del(.data.resultList)'
+http-response-jq ^https?:\/\/(g-)?acs\.m\.goofish\.com\/gw\/mtop.idle.user.page.my.adapter '.data.ability=[] | .data.container.sections |= map(select(.sectionBizCode | test("head|user|trade")))'
+http-response-jq ^https?:\/\/(g-)?acs\.m\.goofish\.com\/gw\/mtop.taobao.idle.item.buy.feeds 'del(.data.sections)'
+http-response-jq ^https?:\/\/(g-)?acs\.m\.goofish\.com\/gw\/mtop.taobao.idle.local.home '.data.sections |= map(select(.data.bizType == "item"))'
+http-response-jq ^https?:\/\/(g-)?acs\.m\.goofish\.com\/gw\/mtop.taobao.idlemtopsearch.search '.data.resultList |= map(select(.data.item.main.clickParam.args.biz_type == "item"))'
+http-response-jq ^https?:\/\/(g-)?acs\.m\.goofish\.com\/gw\/mtop.taobao.idle.item.recommend '.data.cardList |= map(select(.cardData.bizType != "mamaAD"))'
 
 [Script]
 # > YouTube
-YouTube-response = type=http-response, pattern=^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch), requires-body=1, max-size=-1, binary-body-mode=1, script-path=https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Youtube/youtube.response.js , argument='{"lyricLang":"zh-Hans","captionLang":"zh-Hans","blockUpload":true,"blockImmersive":true,"debug":false}'
+YouTube-Response = type=http-response, pattern=^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch), requires-body=1, max-size=-1, binary-body-mode=1, script-path=https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Youtube/youtube.response.js , argument="{\"lyricLang\":\"zh-Hans\",\"captionLang\":\"zh-Hans\",\"blockUpload\":true,\"blockImmersive\":true,\"debug\":false}"
 
-# > 微信公众号   
-微信公众号-去广告 = type=http-response, pattern=^https?:\/\/mp\.weixin\.qq\.com\/mp\/getappmsgad, requires-body=1, script-path=https://raw.githubusercontent.com/NobyDa/Script/master/QuantumultX/File/Wechat.js   
+# > 微信公众号
+WeChat-Official-Ads = type=http-response, pattern=^https?:\/\/mp\.weixin\.qq\.com\/mp\/getappmsgad, requires-body=1, script-path=https://raw.githubusercontent.com/NobyDa/Script/master/QuantumultX/File/Wechat.js
 
-# > 微信小程序  
-通用小程序 = type=http-response, pattern=^(https?://)?([a-zA-Z0-9]+(-[a-zA-Z0-9]+)*\.)+[a-zA-Z]{2,}(:\d+)?/wp-json/[a-zA-Z0-9_-]+/(mp/)?v\d/posts, requires-body=1, script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/applet.js   
+# > 微信小程序
+WeChat-Applet-Ads = type=http-response, pattern=^(https?://)?([a-zA-Z0-9]+(-[a-zA-Z0-9]+)*\.)+[a-zA-Z]{2,}(:\d+)?/wp-json/[a-zA-Z0-9_-]+/(mp/)?v\d/posts, requires-body=1, script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/applet.js
 
-# > 微信url解封  
-微信url解封 = type=http-response, pattern=^https://(weixin110\.qq|security\.wechat)\.com/cgi-bin/mmspamsupport-bin/newredirectconfirmcgi\?, requires-body=1, script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/weixin110.js   
+# > 微信url解封
+WeChat-URL-Unlock = type=http-response, pattern=^https://(weixin110\.qq|security\.wechat)\.com/cgi-bin/mmspamsupport-bin/newredirectconfirmcgi\?, requires-body=1, script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/weixin110.js
+
+# > 哔哩哔哩
+BiliBili-Goods = type=http-response, pattern=^https?:\/\/api\.bili(api|bili)\.(net|com)\/pgc\/season\/app\/related\/recommend\?, requires-body=1, script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/bilibili_json.js
+BiliBili-LiveShopping = type=http-response, pattern=^https?:\/\/api\.live\.bilibili\.com\/xlive\/e-commerce-interface\/v\d\/ecommerce-user\/get_shopping_info\?, requires-body=1, script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/bilibili_json.js
+BiliBili-LiveAd = type=http-response, pattern=^https?:\/\/api\.live\.bilibili\.com\/xlive\/app-room\/v1\/index\/getInfoByRoom, requires-body=1, script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/bilibili_json.js
+BiliBili-Splash = type=http-response, pattern=^https:\/\/app\.bilibili\.com\/x\/v2\/splash\/list, requires-body=1, script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/bilibili_json.js
+BiliBili-HighRes = type=http-response, pattern=^https?:\/\/app\.bilibili\.com\/x\/v2\/account\/myinfo\?, requires-body=1, script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/bilibili_json.js
+BiliBili-LiveBanner = type=http-response, pattern=^https?:\/\/api\.live\.bilibili\.com\/xlive\/app-interface\/v2\/index\/feed, requires-body=1, script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/bilibili_json.js
+BiliBili-FeedAd = type=http-response, pattern=^https?:\/\/app\.bilibili\.com\/x\/v2\/feed\/index, requires-body=1, script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/bilibili_json.js
+BiliBili-BangumiAd = type=http-response, pattern=^https?:\/\/api\.(bilibili|biliapi)\.(com|net)\/pgc\/page\/bangumi, requires-body=1, script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/bilibili_json.js
+BiliBili-CinemaAd = type=http-response, pattern=^https?:\/\/api\.(bilibili|biliapi)\.(com|net)\/pgc\/page\/cinema\/tab\?, requires-body=1, script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/bilibili_json.js
+BiliBili-Tabs = type=http-response, pattern=^https?:\/\/app\.bilibili\.com\/x\/resource\/show\/tab, requires-body=1, script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/bilibili_json.js
+BiliBili-Mine = type=http-response, pattern=^https?:\/\/app\.bilibili\.com\/x\/v2\/account\/mine, requires-body=1, script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/bilibili_json.js
+BiliBili-TopActivity = type=http-response, pattern=^https?:\/\/app\.bilibili\.com\/x\/resource\/top\/activity, requires-body=1, script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/bilibili_json.js
+BiliBili-HotSearch = type=http-response, pattern=^https://app.bilibili.com/x/v2/search/square, requires-body=1, script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/bilibili_json.js
+BiliBili-Proto-Search = type=http-response, pattern=^https?:\/\/(grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.polymer\.app\.search\.v1\.Search\/SearchAll$, requires-body=1, binary-body-mode=1, script-path=https://github.com/BiliUniverse/ADBlock/releases/download/v0.6.19/response.bundle.js
+BiliBili-Proto-DM = type=http-response, pattern=^https?:\/\/(app\.bilibili\.com|grpc\.biliapi\.net)\/bilibili\.community\.service\.dm\.v1\.DM\/(DmView|DmSegMobile), requires-body=1, binary-body-mode=1, script-path=https://github.com/BiliUniverse/ADBlock/releases/download/v0.6.19/response.bundle.js
+BiliBili-Proto-Teen = type=http-response, pattern=^https:\/\/(grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.app\.interface\.v1\.Teenagers\/ModeStatus, requires-body=1, binary-body-mode=1, script-path=https://github.com/BiliUniverse/ADBlock/releases/download/v0.6.19/response.bundle.js
+BiliBili-Proto-UpAd = type=http-response, pattern=^https?:\/\/(app\.bilibili\.com|grpc\.biliapi\.net)\/bilibili\.app\.(view|viewunite)\.v1\.View\/(View|TFInfo)$, requires-body=1, binary-body-mode=1, script-path=https://github.com/BiliUniverse/ADBlock/releases/download/v0.6.19/response.bundle.js
+BiliBili-Proto-Dyn = type=http-response, pattern=^https?:\/\/(app\.bilibili\.com|grpc\.biliapi\.net)\/bilibili\.app\.dynamic\.v2\.Dynamic\/Dyn(All|Video)$, requires-body=1, binary-body-mode=1, script-path=https://github.com/BiliUniverse/ADBlock/releases/download/v0.6.19/response.bundle.js
+
+# > 12306
+12306-Ads = type=http-request, pattern=^https?:\/\/ad\.12306\.cn\/ad\/ser\/getAdList, requires-body=1, script-path=https://github.com/ddgksf2013/Scripts/raw/master/12306.js
+
+# > 闲鱼
+Goofish-AMDC = type=http-response, pattern=^http:\/\/[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+){1,4}(:\d+)?\/amdc\/mobileDispatch, requires-body=1, script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/amdc.js
+
+# > 高德地图
+Amap-AMDC = type=http-response, pattern=^http:\/\/amdc\.m\.taobao\.com, requires-body=1, script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/amdc.js
+Amap-Tabs = type=http-response, pattern=^https?:\/\/.*\.amap\.com\/ws\/message\/notice\/list, requires-body=1, script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/amap.js
+Amap-HomeAd = type=http-response, pattern=^https?:\/\/.*\.amap\.com\/ws\/shield\/frogserver\/aocs\/updatable, requires-body=1, script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/amap.js
+Amap-Nearby = type=http-response, pattern=^https?:\/\/.*\.amap\.com\/ws\/shield\/search\/nearbyrec_smart, requires-body=1, script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/amap.js
+Amap-Taxi = type=http-response, pattern=^https?:\/\/.*\.amap\.com\/ws\/promotion-web\/resource, requires-body=1, script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/amap.js
+Amap-HomeBottom = type=http-response, pattern=^https?:\/\/.*\.amap\.com\/ws\/faas\/amap-navigation\/main-page, requires-body=1, script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/amap.js
+Amap-Splash = type=http-response, pattern=^https?:\/\/.*\.amap\.com\/ws\/valueadded\/alimama\/splash_screen, requires-body=1, script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/amap.js
+Amap-TopMsg = type=http-response, pattern=^https?:\/\/.*\.amap\.com\/ws\/msgbox\/pull, requires-body=1, script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/amap.js
+Amap-Mine = type=http-response, pattern=^https?:\/\/.*\.amap\.com\/ws\/shield\/dsp\/profile\/index\/nodefaas, requires-body=1, script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/amap.js
+Amap-HotWord = type=http-response, pattern=^https?:\/\/.*\.amap\.com\/ws\/shield\/search\/new_hotword, requires-body=1, script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/amap.js
 
 [MITM]
-hostname = %APPEND% *.api.moji.com, tnc*-*.zijieapi.com, m.client.10010.com, img.client.10010.com, acs.m.taobao.com, mp.weixin.qq.com, -redirector*.googlevideo.com, *.googlevideo.com, www.youtube.com, s.youtube.com, youtubei.googleapis.com, weixin110.qq.com, security.wechat.com, app.dsx.ac, unet.quark.cn
+hostname = %APPEND% *.api.moji.com, tnc*-*.zijieapi.com, m.client.10010.com, img.client.10010.com, acs.m.taobao.com, mp.weixin.qq.com, -redirector*.googlevideo.com, *.googlevideo.com, www.youtube.com, s.youtube.com, youtubei.googleapis.com, weixin110.qq.com, security.wechat.com, app.dsx.ac, unet.quark.cn, -broadcast.chat.bilibili.com, -cm.bilibili.com, -*cdn*.biliapi.net, -*tracker*.biliapi.net, app.bilibili.com, api.live.bilibili.com, *.bilibili.com, *.bili*.*, *.bilibili.*, grpc.biliapi.net, *biliapi.net, ad.12306.cn, g-acs.m.goofish.com, m5.amap.com, m5-zb.amap.com, center.amap.com, amap-aos-info-nogw.amap.com, ai.amap.com
