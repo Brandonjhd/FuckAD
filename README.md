@@ -19,7 +19,7 @@ Update at UTF-8 3:00
 ### 订阅链接
 | 代理工具 | 订阅链接 |
 |---------|----------|
-| 小火箭（Shadowrocket） & Surge | [Raw](https://raw.githubusercontent.com/Brandonjhd/FuckAD/main/fuck_ad_sr.conf) |
+| 小火箭（Shadowrocket） & Surge | [Raw](https://raw.githubusercontent.com/uxudjs/FuckAD/refs/heads/main/fuck_ad_sr.conf) |
 
 ### 鸣谢
 特别感谢以下规则来源的贡献与长期维护：
@@ -40,7 +40,7 @@ Update at UTF-8 3:00
 ### 訂閱連結
 | 代理工具 | 訂閱連結 |
 |---------|----------|
-| 小火箭（Shadowrocket） & Surge | [Raw](https://raw.githubusercontent.com/Brandonjhd/FuckAD/main/fuck_ad_sr.conf) |
+| 小火箭（Shadowrocket） & Surge | [Raw](https://raw.githubusercontent.com/uxudjs/FuckAD/refs/heads/main/fuck_ad_sr.conf) |
 
 ### 鳴謝
 特別感謝以下規則來源的支持與長期維護：
@@ -61,7 +61,7 @@ Shadowrocket & Surge Ad-blocking Rule Set (Daily Update, Multi-source Aggregatio
 ### Subscription Links
 | Proxy Tool | Subscription Link |
 |------------|-------------------|
-| Shadowrocket & Surge | [Raw](https://raw.githubusercontent.com/Brandonjhd/FuckAD/main/fuck_ad_sr.conf) |
+| Shadowrocket & Surge | [Raw](https://raw.githubusercontent.com/uxudjs/FuckAD/refs/heads/main/fuck_ad_sr.conf) |
 
 ### Acknowledgements
 Special thanks to the following sources for their rule contributions and ongoing maintenance:
@@ -82,7 +82,7 @@ Shadowrocket & Surge 広告ブロックルールセット（毎日更新、マ�
 ### サブスクリプションリンク
 | プロキシツール | サブスクリプション URL |
 |----------------|---------------------------|
-| Shadowrocket & Surge | [Raw](https://raw.githubusercontent.com/Brandonjhd/FuckAD/main/fuck_ad_sr.conf) |
+| Shadowrocket & Surge | [Raw](https://raw.githubusercontent.com/uxudjs/FuckAD/refs/heads/main/fuck_ad_sr.conf) |
 
 ### 謝辞
 以下のルール提供元の貢献と継続的なメンテナンスに深く感謝いたします：
@@ -103,7 +103,7 @@ Shadowrocket & Surge 광고 차단 규칙 모음 (매일 업데이트, 다중 �
 ### 구독 링크 
 | 프록시 도구 | 구독 URL |
 |-------------|-----------|
-| Shadowrocket & Surge | [Raw](https://raw.githubusercontent.com/Brandonjhd/FuckAD/main/fuck_ad_sr.conf) |
+| Shadowrocket & Surge | [Raw](https://raw.githubusercontent.com/uxudjs/FuckAD/refs/heads/main/fuck_ad_sr.conf) |
 
 ### 감사합니다
 다음 규칙 소스의 기여와 지속적인 유지보수에 감사드립니다：
@@ -117,4 +117,4 @@ Shadowrocket & Surge 광고 차단 규칙 모음 (매일 업데이트, 다중 �
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=Brandonjhd/FuckAD&type=Date)](https://star-history.com/#Brandonjhd/FuckAD&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=uxudjs/FuckAD&type=Date)](https://star-history.com/#uxudjs/FuckAD&Date)
