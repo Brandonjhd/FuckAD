@@ -12,7 +12,7 @@ RULE_URLS = [
 ]
 
 OUTPUT_FILES = [
-    "fuck_ad_sr.conf"
+    "fuck_ad_sr.list"
 ]
 
 README_PATH = "README.md"
