@@ -1,6 +1,6 @@
 #!name=FuckAppsAD
-#!desc=墨迹天气 / 中国联通 / 淘票票 / 微信 / 大师兄影视 / 夸克 / 12306 / 闲鱼 / 高德地图 / 哔哩哔哩 / 滴滴出行 / 百度地图 / 百度网盘 / 小红书 / 菜鸟 / 中国移动
-#!author=uxudjs / ddgksf2013 / bm7 / yjqiang / app2smile / 怎么肥事 / NobyDa / Yuheng0101
+#!desc=墨迹天气 / 中国联通 / 淘票票 / 微信 / 大师兄影视 / 夸克 / 12306 / 闲鱼 / 高德地图 / 哔哩哔哩 / 滴滴出行 / 百度地图 / 百度网盘 / 小红书 / 菜鸟 / 中国移动 / YouTube & YouTube Music
+#!author=uxudjs / ddgksf2013 / bm7 / yjqiang / app2smile / 怎么肥事 / NobyDa / Yuheng0101 / Maasea
 
 [Rule]
 # > 通用广告（不可修改）
@@ -59,6 +59,10 @@ IP-CIDR,116.85.1.0/32,REJECT
 IP-CIDR,116.85.1.17/32,REJECT
 IP-CIDR,116.85.1.22/32,REJECT
 IP-CIDR,116.85.3.25/32,REJECT
+
+# > YouTube
+AND,((DOMAIN-SUFFIX,googlevideo.com), (PROTOCOL,UDP)),REJECT
+AND,((DOMAIN,youtubei.googleapis.com), (PROTOCOL,UDP)),REJECT
 
 [URL Rewrite]
 # > 墨迹天气
@@ -218,8 +222,12 @@ http-response-jq ^https?:\/\/httpdns\.baidubce\.com '.data["newclient.map.baidu.
 http-response-jq ^https?:\/\/newclient\.map\.baidu\.com\/usercenter/mine/page 'del(.data.sport_card, .data.gold, .data.gold_coin_card, .data.shop)'
 http-response-jq ^https?:\/\/newclient\.map\.baidu\.com\/living/nearby/hot-words\? '.Result.data=[]'
 
-# > 百度網盤
+# > 百度网盘
 http-response-jq ^https:\/\/pan\.baidu\.com\/api\/taskscore\/tasklist '.result.list=[]'
+
+[Map Local]
+# > YouTube
+^https?:\/\/[\w-]+\.googlevideo\.com\/initplayback.+&oad data-type=text data="" status-code=200
 
 [Script]
 # > 微信公众号
@@ -261,7 +269,6 @@ Bilibili-Live = type=http-response, pattern=^https?:\/\/api\.live\.bilibili\.com
 Bilibili-Dynamic = type=http-response, pattern=^https?:\/\/api\.vc\.bilibili\.com\/dynamic_svr\/v1\/dynamic_svr\/dynamic_(history|new)\?, requires-body=1, script-path=https://raw.githubusercontent.com/deezertidal/private/master/js-backup/Script/bilibili_json.js
 Bilibili-Proto = type=http-response, pattern=^https:\/\/app\.bilibili\.com\/bilibili\.app\.(view\.v1\.View\/View|dynamic\.v2\.Dynamic\/DynAll)$, requires-body=1, binary-body-mode=1, script-path=https://raw.githubusercontent.com/app2smile/rules/master/js/bilibili-proto.js
 Bilibili-DynAll = type=http-response, pattern=^https://app\.bilibili\.com/bilibili\.app\.dynamic\.v2\.Dynamic/DynAll$, requires-body=1, binary-body-mode=1, script-path=https://raw.githubusercontent.com/yjqiang/surge_scripts/main/scripts/bilibili/bilibili_dynamic.js
-# ～ Bilibili 搜索及交互處理@BiliUniverse
 Bili-Universe-Search = type=http-response, pattern=^https?:\/\/(grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.polymer\.app\.search\.v1\.Search\/SearchAll$, script-path=https://github.com/BiliUniverse/ADBlock/releases/download/v0.6.19/response.bundle.js, requires-body=true, binary-body-mode=true, max-size=-1, timeout=60
 
 # > 滴滴出行
@@ -280,5 +287,8 @@ cainiao_json = type=http-response, pattern=^https?:\/\/[a-zA-Z0-9_.-]+\.cainiao\
 # > 中国移动
 NoAds-Init = type=http-response, pattern=^https?:\/\/client\.app\.coc\.10086\.cn\/biz-orange\/DN\/init\/startInit$, script-path=https://raw.githubusercontent.com/Yuheng0101/X/main/Scripts/ChinaMobile/NoAds.js, requires-body=true, max-size=-1, timeout=60
 
+# > YouTube
+youtube.response = type=http-response,pattern=^https:\/\/youtubei\.googleapis\.com\/(youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch))(\?(.*))?$,requires-body=1,max-size=-1,binary-body-mode=1,script-path=https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Youtube/youtube.response.js,argument="{"lyricLang":"{{{歌词翻译语言}}}","captionLang":"{{{字幕翻译语言}}}","blockUpload":{{{屏蔽上传按钮}}},"blockImmersive":{{{屏蔽选段按钮}}},"blockShorts":{{{屏蔽Shorts按钮}}},"debug":{{{启用调试模式}}}}"
+
 [MITM]
-hostname = %APPEND% *.api.moji.com, tnc*-*.zijieapi.com, m.client.10010.com, img.client.10010.com, acs.m.taobao.com, mp.weixin.qq.com, weixin110.qq.com, security.wechat.com, app.dsx.ac, unet.quark.cn, ad.12306.cn, g-acs.m.goofish.com, acs.m.goofish.com, *.amap.com, app.bilibili.com, api.bilibili.com, api.vc.bilibili.com, manga.bilibili.com, api.live.bilibili.com, grpc.biliapi.net, *.bilibili.com, common.diditaxi.com.cn, freight.xiaojukeji.com, daijia.kuaidadi.com, ct.xiaojukeji.com, res.xiaojukeji.com, conf.diditaxi.com.cn, api.udache.com, mapi.xiaojukeji.com, newclient.map.baidu.com, httpdns.baidubce.com, ugc.map.baidu.com, pan.baidu.com, afd.baidu.com, *.xiaohongshu.com, *.cainiao.com, guide-acs.m.taobao.com, acs4miniapp-inner.m.taobao.com, client.app.coc.10086.cn, h.app.coc.10086.cn, 113.46.225.*, 162.14.157.*, 123.207.209.*, 116.85.*
+hostname = %APPEND% *.api.moji.com, tnc*-*.zijieapi.com, m.client.10010.com, img.client.10010.com, acs.m.taobao.com, mp.weixin.qq.com, weixin110.qq.com, security.wechat.com, app.dsx.ac, unet.quark.cn, ad.12306.cn, g-acs.m.goofish.com, acs.m.goofish.com, *.amap.com, app.bilibili.com, api.bilibili.com, api.vc.bilibili.com, manga.bilibili.com, api.live.bilibili.com, grpc.biliapi.net, *.bilibili.com, common.diditaxi.com.cn, freight.xiaojukeji.com, daijia.kuaidadi.com, ct.xiaojukeji.com, res.xiaojukeji.com, conf.diditaxi.com.cn, api.udache.com, mapi.xiaojukeji.com, newclient.map.baidu.com, httpdns.baidubce.com, ugc.map.baidu.com, pan.baidu.com, afd.baidu.com, *.xiaohongshu.com, *.cainiao.com, guide-acs.m.taobao.com, acs4miniapp-inner.m.taobao.com, client.app.coc.10086.cn, h.app.coc.10086.cn, 113.46.225.*, 162.14.157.*, 123.207.209.*, 116.85.*, *.googlevideo.com, youtubei.googleapis.com
