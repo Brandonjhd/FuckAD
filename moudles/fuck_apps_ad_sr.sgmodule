@@ -1,5 +1,5 @@
 #!name=FuckAppsAD
-#!desc=墨迹天气 / 中国联通 / 淘票票 / 微信 / 大师兄影视 / 夸克 / 12306 / 闲鱼 / 高德地图 / 滴滴出行 / 百度地图 / 百度网盘 / 小红书 / 菜鸟 / 中国移动 / YouTube & YouTube Music / 哔哩哔哩
+#!desc=墨迹天气 / 中国联通 / 淘票票 / 微信 / 大师兄影视 / 夸克 / 12306 / 闲鱼 / 高德地图 / 滴滴出行 / 百度地图 / 百度网盘 / 菜鸟 / 中国移动 / YouTube & YouTube Music / 哔哩哔哩
 #!author=uxudjs / ddgksf2013 / bm7 / yjqiang / app2smile / 怎么肥事 / NobyDa / Yuheng0101 / Maasea / blackmatrix7 / kokoryh / BiliUniverse
 
 [Rule]
@@ -134,16 +134,6 @@ AND,((DOMAIN,youtubei.googleapis.com), (PROTOCOL,UDP)),REJECT
 ^https:\/\/pan\.baidu\.com\/coins\/center\/notice - reject-200
 ^https:\/\/pan\.baidu\.com\/recommend\/shortseries\/list - reject-dict
 
-# > 小红书
-^https?:\/\/[a-z]+\.xiaohongshu\.com\/api\/sns\/v\d+\/search\/notes\/recommend_info\? - reject-200
-^https?:\/\/[a-z]+\.xiaohongshu\.com\/api\/sns\/v\d+\/system_service\/splash - reject-200
-^https?:\/\/[a-z]+\.xiaohongshu\.com\/api\/gslb - reject-200
-^https?:\/\/[a-z]+\.xiaohongshu\.com\/api\/sns\/v\d+\/(tag\/)?ads - reject-200
-^https?:\/\/[a-z]+\.xiaohongshu\.com\/v\d+\/stateReport - reject-200
-^https?:\/\/[a-z]+\.xiaohongshu\.com\/data\/native\/matrix_switches - reject-200
-^https?:\/\/[a-z]+\.xiaohongshu\.com\/api\/sns\/v\d+\/user\/teenager\/status - reject-200
-^https?:\/\/[a-z]+\.xiaohongshu\.com\/api\/sns\/v\d+\/guide\/home_guide - reject-200
-
 # > 菜鸟裹裹
 ^https?:\/\/[a-zA-Z0-9_.-]+\.cainiao\.com\/gw\/mtop\.cainiao\.guoguo\.nbnetflow\.ads\.(?!.*_home) - reject-200
 ^https?:\/\/[a-zA-Z0-9_.-]+\.cainiao\.com\/gw\/mtop\.cainiao\.guoguo\.nbnetflow\.ads\.mshow\.cn - reject-200
@@ -264,9 +254,6 @@ Didichuxing-Core = type=http-response, pattern=^https:\/\/conf\.diditaxi\.com\.c
 # > 百度网盘
 BaiduNetDisk-Ads = type=http-response, pattern=^https?:\/\/afd\.baidu\.com\/afd\/entry, script-path=https://ddgksf2013.top/scripts/bdpan.ads.js, requires-body=true, max-size=-1, timeout=60
 
-# > 小红书
-XiaoHongShu-Feed = type=http-response, pattern=^https?:\/\/[a-z]+\.xiaohongshu\.com\/api\/sns\/v\d+\/(homefeed|note\/feed|search\/notes), script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/redbook_json.js, requires-body=true, max-size=-1, timeout=60
-
 # > 菜鸟裹裹
 Cainiao-Page = type=http-response, pattern=^https?:\/\/[a-zA-Z0-9_.-]+\.cainiao\.com\/gw\/mtop\.cainiao\.app\.e2e\.engine\.page\.fetch, script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/cainiao_json.js, requires-body=true, max-size=-1, timeout=60
 
@@ -299,4 +286,4 @@ BiliBili-Dynamic = type=http-response, pattern=^https?:\/\/(app\.bilibili\.com|g
 ^https?:\/\/[\w-]+\.googlevideo\.com\/initplayback.+&oad data-type=text data="" status-code=200
 
 [MITM]
-hostname = %APPEND% *.api.moji.com, tnc*-*.zijieapi.com, m.client.10010.com, img.client.10010.com, acs.m.taobao.com, mp.weixin.qq.com, weixin110.qq.com, security.wechat.com, app.dsx.ac, unet.quark.cn, ad.12306.cn, g-acs.m.goofish.com, acs.m.goofish.com, *.amap.com, common.diditaxi.com.cn, freight.xiaojukeji.com, daijia.kuaidadi.com, ct.xiaojukeji.com, res.xiaojukeji.com, conf.diditaxi.com.cn, api.udache.com, mapi.xiaojukeji.com, newclient.map.baidu.com, httpdns.baidubce.com, ugc.map.baidu.com, pan.baidu.com, afd.baidu.com, *.xiaohongshu.com, *.cainiao.com, guide-acs.m.taobao.com, acs4miniapp-inner.m.taobao.com, client.app.coc.10086.cn, h.app.coc.10086.cn, 113.46.225.*, 162.14.157.*, 123.207.209.*, 116.85.*, *.googlevideo.com, youtubei.googleapis.com, *.bilibili.com, *.bilibili.net, api.live.bilibili.com, *.biliapi.net, *.biliapi.com
+hostname = %APPEND% *.api.moji.com, tnc*-*.zijieapi.com, m.client.10010.com, img.client.10010.com, acs.m.taobao.com, mp.weixin.qq.com, weixin110.qq.com, security.wechat.com, app.dsx.ac, unet.quark.cn, ad.12306.cn, g-acs.m.goofish.com, acs.m.goofish.com, *.amap.com, common.diditaxi.com.cn, freight.xiaojukeji.com, daijia.kuaidadi.com, ct.xiaojukeji.com, res.xiaojukeji.com, conf.diditaxi.com.cn, api.udache.com, mapi.xiaojukeji.com, newclient.map.baidu.com, httpdns.baidubce.com, ugc.map.baidu.com, pan.baidu.com, afd.baidu.com, *.cainiao.com, guide-acs.m.taobao.com, acs4miniapp-inner.m.taobao.com, client.app.coc.10086.cn, h.app.coc.10086.cn, 113.46.225.*, 162.14.157.*, 123.207.209.*, 116.85.*, *.googlevideo.com, youtubei.googleapis.com, *.bilibili.com, *.bilibili.net, api.live.bilibili.com, *.biliapi.net, *.biliapi.com
