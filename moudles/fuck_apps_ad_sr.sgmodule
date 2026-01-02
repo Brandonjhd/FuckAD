@@ -1,5 +1,5 @@
 #!name=FuckAppsAD
-#!desc=墨迹天气 / 中国联通 / 淘票票 / 微信 / 大师兄影视 / 夸克 / 12306 / 闲鱼 / 高德地图 / 滴滴出行 / 百度地图 / 百度网盘 / 菜鸟 / 中国移动 / YouTube & YouTube Music / 哔哩哔哩 / Google人机验证
+#!desc=墨迹天气 / 中国联通 / 淘票票 / 微信 / 大师兄影视 / 夸克 / 12306 / 闲鱼 / 高德地图 / 滴滴出行 / 百度地图 / 百度网盘 / 菜鸟 / 中国移动 / YouTube & YouTube Music / 哔哩哔哩 / Google人机验证 / SafariBing优化
 #!author=uxudjs / ddgksf2013 / bm7 / yjqiang / app2smile / 怎么肥事 / NobyDa / Yuheng0101 / Maasea / blackmatrix7 / kokoryh / BiliUniverse
 
 [Rule]
@@ -292,8 +292,11 @@ BiliBili-Dynamic = type=http-response, pattern=^https?:\/\/(app\.bilibili\.com|g
 # >Google人机验证
 Google-CAPTCHA = type=http-response, pattern=^https:\/\/www\.google\.com(?:\.[a-z]+|)\/(?:search\?(?:|.+?&)q=|$), script-path=https://raw.githubusercontent.com/NobyDa/Script/master/Surge/JS/Google_CAPTCHA.js, requires-body=true, max-size=-1, timeout=60
 
+# > SafariBing优化
+SafariBing=type=http-request,pattern=^https?://www\.bing\.com,requires-body=0,script-path=https://whatshub.top/module/bfs.js
+
 [Map Local]
 ^https?:\/\/[\w-]+\.googlevideo\.com\/initplayback.+&oad data-type=text data="" status-code=200
 
 [MITM]
-hostname = %APPEND% *.api.moji.com, tnc*-*.zijieapi.com, m.client.10010.com, img.client.10010.com, acs.m.taobao.com, mp.weixin.qq.com, weixin110.qq.com, security.wechat.com, app.dsx.ac, unet.quark.cn, ad.12306.cn, g-acs.m.goofish.com, acs.m.goofish.com, *.amap.com, common.diditaxi.com.cn, freight.xiaojukeji.com, daijia.kuaidadi.com, ct.xiaojukeji.com, res.xiaojukeji.com, conf.diditaxi.com.cn, api.udache.com, mapi.xiaojukeji.com, newclient.map.baidu.com, httpdns.baidubce.com, ugc.map.baidu.com, pan.baidu.com, afd.baidu.com, *.cainiao.com, guide-acs.m.taobao.com, acs4miniapp-inner.m.taobao.com, client.app.coc.10086.cn, h.app.coc.10086.cn, 113.46.225.*, 162.14.157.*, 123.207.209.*, 116.85.*, *.googlevideo.com, youtubei.googleapis.com, *.bilibili.com, *.bilibili.net, api.live.bilibili.com, *.biliapi.net, *.biliapi.com, www.google.com*
+hostname = %APPEND% *.api.moji.com, tnc*-*.zijieapi.com, m.client.10010.com, img.client.10010.com, acs.m.taobao.com, mp.weixin.qq.com, weixin110.qq.com, security.wechat.com, app.dsx.ac, unet.quark.cn, ad.12306.cn, g-acs.m.goofish.com, acs.m.goofish.com, *.amap.com, common.diditaxi.com.cn, freight.xiaojukeji.com, daijia.kuaidadi.com, ct.xiaojukeji.com, res.xiaojukeji.com, conf.diditaxi.com.cn, api.udache.com, mapi.xiaojukeji.com, newclient.map.baidu.com, httpdns.baidubce.com, ugc.map.baidu.com, pan.baidu.com, afd.baidu.com, *.cainiao.com, guide-acs.m.taobao.com, acs4miniapp-inner.m.taobao.com, client.app.coc.10086.cn, h.app.coc.10086.cn, 113.46.225.*, 162.14.157.*, 123.207.209.*, 116.85.*, *.googlevideo.com, youtubei.googleapis.com, *.bilibili.com, *.bilibili.net, api.live.bilibili.com, *.biliapi.net, *.biliapi.com, www.google.com*, www.bing.com
