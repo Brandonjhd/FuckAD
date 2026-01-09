@@ -1,5 +1,5 @@
 #!name=FuckAppsAD
-#!desc=墨迹天气 / 中国联通 / 淘票票 / 微信 / 大师兄影视 / 夸克 / 12306 / 闲鱼 / 高德地图 / 滴滴出行 / 百度地图 / 百度网盘 / 菜鸟 / 中国移动 / YouTube & YouTube Music / 哔哩哔哩 / Google人机验证 / SafariBing优化
+#!desc=墨迹天气 / 中国联通 / 淘票票 / 微信 / 大师兄影视 / 夸克 / 12306 / 闲鱼 / 高德地图 / 滴滴出行 / 百度地图 / 百度网盘 / 菜鸟 / 中国移动 / YouTube & YouTube Music / Google人机验证 / SafariBing优化
 #!author=uxudjs / ddgksf2013 / bm7 / yjqiang / app2smile / 怎么肥事 / NobyDa / Yuheng0101 / Maasea / blackmatrix7 / kokoryh / BiliUniverse
 
 [Rule]
@@ -154,17 +154,6 @@ AND,((DOMAIN,youtubei.googleapis.com), (PROTOCOL,UDP)),REJECT
 ^https?:\/\/(www|s)\.youtube\.com\/(pagead|ptracking) - reject-200
 ^https?:\/\/s\.youtube\.com\/api\/stats\/qoe\?adcontext - reject-200
 
-# > 哔哩哔哩
-^https?:\/\/bilibili.2025.04.02\/c136 - reject-200
-^https?:\/\/api\.bilibili\.com\/pgc\/activity\/deliver\/material\/receive - reject-dict
-^https?:\/\/api\.bilibili\.com\/x\/vip\/ads\/material\/report - reject-dict
-^https:\/\/api\.bilibili\.com\/pgc\/season\/player\/cards - reject-dict
-^https?:\/\/api\.bilibili\.com\/pgc\/season\/player\/ogv\/cards - reject-dict
-^https:\/\/app\.bilibili\.com\/x\/v2\/splash\/show - reject-dict
-^https?:\/\/manga\.bilibili\.com\/twirp\/comic\.v\d\.Comic\/(Flash|ListFlash|GetActivityTab) - reject-dict
-^https?:\/\/app\.bilibili\.com\/x\/v\d\/search\/defaultwords - reject-dict
-^https?:\/\/(app\.bilibili\.com|grpc\.biliapi\.net)\/bilibili\.app\.interface\.v1\.Search\/Default - reject-200
-
 # > 微信
 # > 小程序_便利蜂
 ^https?:\/\/api\.blibee\.com\/cvsnotify-api\/cvs\/notify\/app\/banner\/v\d+$ - reject-200
@@ -270,25 +259,6 @@ ChinaMobile-Init = type=http-response, pattern=^https?:\/\/client\.app\.coc\.100
 # > YouTube
 YouTube-Response = type=http-response,pattern=^https:\/\/youtubei\.googleapis\.com\/(youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch))(\?(.*))?$,requires-body=1,max-size=-1,binary-body-mode=1,script-path=https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Youtube/youtube.response.js,argument="{\"lyricLang\":\"{{{歌词翻译语言}}}\",\"captionLang\":\"{{{字幕翻译语言}}}\",\"blockUpload\":{{{屏蔽上传按钮}}},\"blockImmersive\":{{{屏蔽选段按钮}}},\"blockShorts\":{{{屏蔽Shorts按钮}}},\"debug\":{{{启用调试模式}}}}"
 
-# > 哔哩哔哩
-BiliBili-RelatedRecommend = type=http-response, pattern=^https?:\/\/api\.bili(api|bili)\.(net|com)\/pgc\/season\/app\/related\/recommend\?, script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/bilibili_json.js, requires-body=true, max-size=-1, timeout=60
-BiliBili-LiveShopping = type=http-response, pattern=^https?:\/\/api\.live\.bilibili\.com\/xlive\/e-commerce-interface\/v\d\/ecommerce-user\/get_shopping_info\?, script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/bilibili_json.js, requires-body=true, max-size=-1, timeout=60
-BiliBili-LiveRoomInfo = type=http-response, pattern=^https?:\/\/api\.live\.bilibili\.com\/xlive\/app-room\/v1\/index\/getInfoByRoom, script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/bilibili_json.js, requires-body=true, max-size=-1, timeout=60
-BiliBili-SplashList = type=http-response, pattern=^https:\/\/app\.bilibili\.com\/x\/v2\/splash\/list, script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/bilibili_json.js, requires-body=true, max-size=-1, timeout=60
-BiliBili-LiveFeed = type=http-response, pattern=^https?:\/\/api\.live\.bilibili\.com\/xlive\/app-interface\/v2\/index\/feed, script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/bilibili_json.js, requires-body=true, max-size=-1, timeout=60
-BiliBili-FeedIndex = type=http-response, pattern=^https?:\/\/app\.bilibili\.com\/x\/v2\/feed\/index, script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/bilibili_json.js, requires-body=true, max-size=-1, timeout=60
-BiliBili-BangumiTab = type=http-response, pattern=^https?:\/\/api\.(bilibili|biliapi)\.(com|net)\/pgc\/page\/bangumi, script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/bilibili_json.js, requires-body=true, max-size=-1, timeout=60
-BiliBili-CinemaTab = type=http-response, pattern=^https?:\/\/api\.(bilibili|biliapi)\.(com|net)\/pgc\/page\/cinema\/tab\?, script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/bilibili_json.js, requires-body=true, max-size=-1, timeout=60
-BiliBili-ShowTab = type=http-response, pattern=^https?:\/\/app\.bilibili\.com\/x\/resource\/show\/tab, script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/bilibili_json.js, requires-body=true, max-size=-1, timeout=60
-BiliBili-AccountMine = type=http-response, pattern=^https?:\/\/app\.bilibili\.com\/x\/v2\/account\/mine, script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/bilibili_json.js, requires-body=true, max-size=-1, timeout=60
-BiliBili-TopActivity = type=http-response, pattern=^https?:\/\/app\.bilibili\.com\/x\/resource\/top\/activity, script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/bilibili_json.js, requires-body=true, max-size=-1, timeout=60
-BiliBili-SearchSquare = type=http-response, pattern=^https:\/\/app\.bilibili\.com\/x\/v2\/search\/square, script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/refs/heads/master/bilibili_json.js, requires-body=true, max-size=-1, timeout=60
-BiliBili-SearchAll = type=http-response, pattern=^https?:\/\/(grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.polymer\.app\.search\.v1\.Search\/SearchAll$, script-path=https://github.com/BiliUniverse/ADBlock/releases/download/v0.6.19/response.bundle.js, requires-body=true, max-size=-1, timeout=60
-BiliBili-DM = type=http-response, pattern=^https?:\/\/(app\.bilibili\.com|grpc\.biliapi\.net)\/bilibili\.community\.service\.dm\.v1\.DM\/(DmView|DmSegMobile), script-path=https://github.com/BiliUniverse/ADBlock/releases/download/v0.6.19/response.bundle.js, requires-body=true, max-size=-1, timeout=60
-BiliBili-Teenagers = type=http-response, pattern=^https:\/\/(grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.app\.interface\.v1\.Teenagers\/ModeStatus, script-path=https://github.com/BiliUniverse/ADBlock/releases/download/v0.6.19/response.bundle.js, requires-body=true, max-size=-1, timeout=60
-BiliBili-View = type=http-response, pattern=^https?:\/\/(app\.bilibili\.com|grpc\.biliapi\.net)\/bilibili\.app\.(view|viewunite)\.v1\.View\/(View|TFInfo)$, script-path=https://github.com/BiliUniverse/ADBlock/releases/download/v0.6.19/response.bundle.js, requires-body=true, max-size=-1, timeout=60
-BiliBili-Dynamic = type=http-response, pattern=^https?:\/\/(app\.bilibili\.com|grpc\.biliapi\.net)\/bilibili\.app\.dynamic\.v2\.Dynamic\/Dyn(All|Video)$, script-path=https://github.com/BiliUniverse/ADBlock/releases/download/v0.6.19/response.bundle.js, requires-body=true, max-size=-1, timeout=60
-
 # >Google人机验证
 Google-CAPTCHA = type=http-response, pattern=^https:\/\/www\.google\.com(?:\.[a-z]+|)\/(?:search\?(?:|.+?&)q=|$), script-path=https://raw.githubusercontent.com/NobyDa/Script/master/Surge/JS/Google_CAPTCHA.js, requires-body=true, max-size=-1, timeout=60
 
@@ -299,4 +269,4 @@ SafariBing=type=http-request,pattern=^https?://www\.bing\.com,requires-body=0,sc
 ^https?:\/\/[\w-]+\.googlevideo\.com\/initplayback.+&oad data-type=text data="" status-code=200
 
 [MITM]
-hostname = %APPEND% *.api.moji.com, tnc*-*.zijieapi.com, m.client.10010.com, img.client.10010.com, acs.m.taobao.com, mp.weixin.qq.com, weixin110.qq.com, security.wechat.com, app.dsx.ac, unet.quark.cn, ad.12306.cn, g-acs.m.goofish.com, acs.m.goofish.com, *.amap.com, common.diditaxi.com.cn, freight.xiaojukeji.com, daijia.kuaidadi.com, ct.xiaojukeji.com, res.xiaojukeji.com, conf.diditaxi.com.cn, api.udache.com, mapi.xiaojukeji.com, newclient.map.baidu.com, httpdns.baidubce.com, ugc.map.baidu.com, pan.baidu.com, afd.baidu.com, *.cainiao.com, guide-acs.m.taobao.com, acs4miniapp-inner.m.taobao.com, client.app.coc.10086.cn, h.app.coc.10086.cn, 113.46.225.*, 162.14.157.*, 123.207.209.*, 116.85.*, *.googlevideo.com, youtubei.googleapis.com, *.bilibili.com, *.bilibili.net, api.live.bilibili.com, *.biliapi.net, *.biliapi.com, www.google.com*, www.bing.com
+hostname = %APPEND% *.api.moji.com, tnc*-*.zijieapi.com, m.client.10010.com, img.client.10010.com, acs.m.taobao.com, mp.weixin.qq.com, weixin110.qq.com, security.wechat.com, app.dsx.ac, unet.quark.cn, ad.12306.cn, g-acs.m.goofish.com, acs.m.goofish.com, *.amap.com, common.diditaxi.com.cn, freight.xiaojukeji.com, daijia.kuaidadi.com, ct.xiaojukeji.com, res.xiaojukeji.com, conf.diditaxi.com.cn, api.udache.com, mapi.xiaojukeji.com, newclient.map.baidu.com, httpdns.baidubce.com, ugc.map.baidu.com, pan.baidu.com, afd.baidu.com, *.cainiao.com, guide-acs.m.taobao.com, acs4miniapp-inner.m.taobao.com, client.app.coc.10086.cn, h.app.coc.10086.cn, 113.46.225.*, 162.14.157.*, 123.207.209.*, 116.85.*, *.googlevideo.com, youtubei.googleapis.com, www.google.com*, www.bing.com
